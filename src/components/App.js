@@ -42,15 +42,7 @@ class App extends Component {
   };
 
   checkName = data => {
-    let flag = false;
-
-    this.state.contacts.forEach(el => {
-      if (el.name === data.name) {
-        flag = true;
-      }
-    });
-
-    return flag;
+    return this.state.contacts.some(el => el.name === data.name);
   };
 
   onContactDelete = e => {
