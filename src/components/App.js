@@ -1,77 +1,59 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 
 import Section from './Section/Section';
 import Form from './Form/Form';
 import Contacts from './Contacts/Contacts';
 import Filter from './Filter/Filter';
 
-class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
+function App() {
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) ?? []
+  );
+  const [filter, setFilter] = useState('');
 
-  componentDidMount() {
-    const saveContacts = JSON.parse(localStorage.getItem('contacts'));
-    saveContacts && this.setState({ contacts: saveContacts });
-  }
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
-  componentDidUpdate(prevState) {
-    if (prevState !== this.state) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
-  onFormSubmit = data => {
-    if (this.checkName(data)) {
+  const onFormSubmit = data => {
+    if (checkName(data)) {
       alert(`${data.name} is already in contacts.`);
       return;
     }
 
-    this.setState({
-      contacts: [data, ...this.state.contacts],
-    });
+    setContacts([data, ...contacts]);
   };
 
-  onChange = e => {
-    this.setState({
-      [e.currentTarget.name]: e.currentTarget.value,
-    });
+  const onChange = e => {
+    setFilter(e.currentTarget.value);
   };
 
-  onFilter = () => {
-    const normalizedFilter = this.state.filter.toLowerCase();
+  const onFilter = () => {
+    const normalizedFilter = filter.toLowerCase();
 
-    return this.state.contacts.filter(el =>
+    return contacts.filter(el =>
       el.name.toLowerCase().includes(normalizedFilter)
     );
   };
 
-  checkName = data => {
-    return this.state.contacts.some(el => el.name === data.name);
+  const checkName = data => {
+    return contacts.some(el => el.name === data.name);
   };
 
-  onContactDelete = e => {
-    this.setState({
-      contacts: this.state.contacts.filter(el => el.id !== e.target.id),
-    });
+  const onContactDelete = e => {
+    setContacts(contacts.filter(el => el.id !== e.target.id));
   };
 
-  render() {
-    return (
-      <>
-        <h1>Phonebook</h1>
-        <Form submit={this.onFormSubmit} />
-        <Section title="Contacts">
-          <Filter filter={this.state.filter} change={this.onChange} />
-          <Contacts
-            contacts={this.onFilter()}
-            onContactDelete={this.onContactDelete}
-          />
-        </Section>
-      </>
-    );
-  }
+  return (
+    <>
+      <h1>Phonebook</h1>
+      <Form submit={onFormSubmit} />
+      <Section title="Contacts">
+        <Filter filter={filter} change={onChange} />
+        <Contacts contacts={onFilter()} onContactDelete={onContactDelete} />
+      </Section>
+    </>
+  );
 }
 
 export { App };
