@@ -1,35 +1,30 @@
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/phoneBook';
 import s from './Contacts.module.css';
 
-const Contacts = ({ contacts, onContactDelete }) => (
-  <>
-    <ul className={s.list}>
-      {contacts.map(el => (
-        <li className={s.item} key={el.id}>
-          {el.name}: {el.number}
-          <button
-            id={el.id}
-            className={s.deleteBtn}
-            type="button"
-            onClick={onContactDelete}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
-  </>
-);
+const Contacts = () => {
+  const contacts = useSelector(state => state.phoneBook.items);
+  const filter = useSelector(state => state.phoneBook.filter);
+  const dispatch = useDispatch();
 
-Contacts.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-  onContactDelete: PropTypes.func.isRequired,
+  return (
+    <ul className={s.list}>
+      {contacts
+        .filter(el => el.name.toLowerCase().includes(filter))
+        .map(({ id, number, name }) => (
+          <li className={s.item} key={id}>
+            {name}: {number}
+            <button
+              className={s.deleteBtn}
+              type="button"
+              onClick={() => dispatch(deleteContact({ id }))}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+    </ul>
+  );
 };
 
 export default Contacts;

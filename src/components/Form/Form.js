@@ -1,19 +1,16 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/phoneBook';
 import s from './Form.module.css';
 
-function Form({ submit }) {
+function Form() {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
-    submit({
-      id: nanoid(),
-      name: name,
-      number: number,
-    });
+    dispatch(addContact({ name, number }));
     formReset();
   };
 
@@ -71,7 +68,5 @@ function Form({ submit }) {
     </form>
   );
 }
-
-Form.propTypes = { submit: PropTypes.func.isRequired };
 
 export default Form;
