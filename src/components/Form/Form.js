@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/phoneBook';
+import { useAddContactMutation } from 'redux/phoneBookAPI';
 import s from './Form.module.css';
 
 function Form() {
-  const dispatch = useDispatch();
+  const [addContact] = useAddContactMutation();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
-    dispatch(addContact({ name, number }));
+    addContact({ name, number });
     formReset();
   };
 

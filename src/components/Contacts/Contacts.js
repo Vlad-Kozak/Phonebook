@@ -1,15 +1,21 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/phoneBook';
+import { useSelector } from 'react-redux';
+import {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+} from 'redux/phoneBookAPI';
 import s from './Contacts.module.css';
 
 const Contacts = () => {
-  const contacts = useSelector(state => state.phoneBook.items);
-  const filter = useSelector(state => state.phoneBook.filter);
-  const dispatch = useDispatch();
+  const { data = [], isLoading } = useGetContactsQuery();
+  const [deleteContact] = useDeleteContactMutation();
+
+  const filter = useSelector(state => state.filter.filter);
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
     <ul className={s.list}>
-      {contacts
+      {data
         .filter(el => el.name.toLowerCase().includes(filter))
         .map(({ id, number, name }) => (
           <li className={s.item} key={id}>
@@ -17,7 +23,7 @@ const Contacts = () => {
             <button
               className={s.deleteBtn}
               type="button"
-              onClick={() => dispatch(deleteContact({ id }))}
+              onClick={() => deleteContact(id)}
             >
               Delete
             </button>

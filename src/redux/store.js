@@ -1,8 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { persistStore } from 'redux-persist';
-import { persistedReducer } from './phoneBook';
+import { phoneBookAPI } from './phoneBookAPI';
+import filterReducer from './phoneBook';
 
-const store = configureStore({ reducer: { phoneBook: persistedReducer } });
-const persistor = persistStore(store);
+const store = configureStore({
+  reducer: {
+    [phoneBookAPI.reducerPath]: phoneBookAPI.reducer,
+    filter: filterReducer,
+  },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(phoneBookAPI.middleware),
+});
 
-export { store, persistor };
+export { store };
