@@ -39,6 +39,7 @@ function Form() {
       <label className={s.label}>
         Name
         <input
+          autoComplete="off"
           className={s.input}
           type="text"
           value={name}
@@ -52,6 +53,7 @@ function Form() {
       <label className={s.label}>
         Number
         <input
+          autoComplete="off"
           className={s.input}
           value={number}
           onChange={onChange}

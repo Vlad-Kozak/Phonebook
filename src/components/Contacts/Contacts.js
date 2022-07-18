@@ -25,7 +25,7 @@ const Contacts = () => {
               type="button"
               onClick={() => deleteContact(id)}
             >
-              Delete
+              X
             </button>
           </li>
         ))}
