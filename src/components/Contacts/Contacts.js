@@ -1,3 +1,4 @@
+import { Oval } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import {
   useGetContactsQuery,
@@ -6,16 +7,28 @@ import {
 import s from './Contacts.module.css';
 
 const Contacts = () => {
-  const { data = [], isLoading } = useGetContactsQuery();
+  const { data = [], isFetching } = useGetContactsQuery();
   const [deleteContact] = useDeleteContactMutation();
 
   const filter = useSelector(state => state.filter.filter);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isFetching)
+    return (
+      <div className={s.loading}>
+        <Oval
+          height="100"
+          width="100"
+          color="#2c2020bc"
+          secondaryColor="rgb(46, 46, 46)"
+          ariaLabel="loading"
+        />
+      </div>
+    );
 
   return (
     <ul className={s.list}>
-      {data
+      {[...data]
+        .reverse()
         .filter(el => el.name.toLowerCase().includes(filter))
         .map(({ id, number, name }) => (
           <li className={s.item} key={id}>
@@ -23,12 +36,23 @@ const Contacts = () => {
             <button
               className={s.deleteBtn}
               type="button"
-              onClick={() => deleteContact(id)}
+              onClick={e => deleteContact(id)}
             >
               X
             </button>
           </li>
         ))}
+      {isFetching && (
+        <li>
+          <Oval
+            height="20"
+            width="20"
+            color="#2c2020bc"
+            secondaryColor="rgb(46, 46, 46)"
+            ariaLabel="loading"
+          />
+        </li>
+      )}
     </ul>
   );
 };
