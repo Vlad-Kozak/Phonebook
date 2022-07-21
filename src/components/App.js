@@ -1,15 +1,24 @@
-import Form from './Form/Form';
-import Contacts from './Contacts/Contacts';
-import Filter from './Filter/Filter';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from 'pages/HomePage';
+import LoginPage from 'pages/LoginPage';
+import RegisterPage from 'pages/RegisterPage';
+import authOperations from 'redux/auth/authOperations';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
+
   return (
-    <>
-      <h1 className="primary-title">Phonebook</h1>
-      <Form />
-      <Filter />
-      <Contacts />
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+    </Routes>
   );
 }
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useAddContactMutation } from 'redux/phoneBookAPI';
-import s from './Form.module.css';
+import s from './ContactsForm.module.css';
 
-function Form() {
+function ContactsForm() {
   const [addContact] = useAddContactMutation();
 
   const [name, setName] = useState('');
@@ -37,7 +37,7 @@ function Form() {
   return (
     <form className={s.form} onSubmit={onSubmit}>
       <label className={s.label}>
-        Name
+        Name*
         <input
           autoComplete="off"
           className={s.input}
@@ -51,7 +51,7 @@ function Form() {
         />
       </label>
       <label className={s.label}>
-        Number
+        Number*
         <input
           autoComplete="off"
           className={s.input}
@@ -71,4 +71,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default ContactsForm;

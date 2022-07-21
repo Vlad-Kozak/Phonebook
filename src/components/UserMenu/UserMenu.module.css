@@ -1,30 +1,27 @@
-.list {
-  max-width: 400px;
-  margin: 0 auto;
-}
+.userMenu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 
-.item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
+  font-weight: bold;
+  font-size: 20px;
   color: var(--primary-color);
-  margin-bottom: 5px;
 }
 
-.deleteBtn {
+.signOut {
+  margin-left: 10px;
   padding: 5px 10px;
   background-color: var(--accent-color);
   border-radius: 10px;
+  text-transform: uppercase;
   color: var(--primary-color);
   cursor: pointer;
-  transition: background-color 300ms;
+  transition: background-color 250ms;
 }
 
-.deleteBtn:hover {
+.signOut:hover {
   background-color: var(--hover-color);
-}
-
-.loading {
-  width: 100px;
-  margin: 0 auto;
 }

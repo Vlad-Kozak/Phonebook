@@ -18,8 +18,8 @@ const Contacts = () => {
         <Oval
           height="100"
           width="100"
-          color="#2c2020bc"
-          secondaryColor="rgb(46, 46, 46)"
+          color="#181c64"
+          secondaryColor="#050735"
           ariaLabel="loading"
         />
       </div>
