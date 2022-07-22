@@ -1,5 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { phoneBookAPI } from './phoneBookAPI';
 import filterReducer from './filter';
@@ -18,7 +27,11 @@ export const store = configureStore({
     filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(phoneBookAPI.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(phoneBookAPI.middleware),
 });
 
 export const persistor = persistStore(store);
