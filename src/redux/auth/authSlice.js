@@ -73,7 +73,6 @@ const authSlice = createSlice({
     },
     [authOperations.fetchCurrentUser.rejected](state, action) {
       state.isLoadingRefresh = false;
-      if (action.payload === 401) toast.error('Error');
     },
   },
 });
