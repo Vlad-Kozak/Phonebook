@@ -6,6 +6,7 @@ import { persistor, store } from './redux/store';
 import { App } from 'components/App';
 import './index.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { PersistGate } from 'redux-persist/integration/react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

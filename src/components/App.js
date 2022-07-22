@@ -8,6 +8,7 @@ import LoginPage from 'pages/LoginPage';
 import RegisterPage from 'pages/RegisterPage';
 import authOperations from 'redux/auth/authOperations';
 import { getIsLoadingRefresh } from 'redux/auth/authSelectors';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,36 +19,40 @@ function App() {
   }, [dispatch]);
 
   return (
-    !isLoadingRefresh && (
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <HomePage />
-            </PrivateRoute>
-          }
-        />
+    <>
+      <ToastContainer autoClose={4000} />
 
-        <Route
-          path="/login"
-          element={
-            <PublicRoute restricted>
-              <LoginPage />
-            </PublicRoute>
-          }
-        />
+      {!isLoadingRefresh && (
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
+            }
+          />
 
-        <Route
-          path="/register"
-          element={
-            <PublicRoute restricted>
-              <RegisterPage />
-            </PublicRoute>
-          }
-        />
-      </Routes>
-    )
+          <Route
+            path="/login"
+            element={
+              <PublicRoute restricted>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+
+          <Route
+            path="/register"
+            element={
+              <PublicRoute restricted>
+                <RegisterPage />
+              </PublicRoute>
+            }
+          />
+        </Routes>
+      )}
+    </>
   );
 }
 

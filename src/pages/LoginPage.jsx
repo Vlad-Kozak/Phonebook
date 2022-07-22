@@ -13,7 +13,7 @@ export default function LoginPage() {
 
   return (
     <Container>
-      <h1 className="primary-title">Login</h1>
+      <h1 className="primary-title auth">Login</h1>
 
       <AuthForm title="Sign In" handleSubmit={handleSubmit} />
 

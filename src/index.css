@@ -49,6 +49,10 @@ img {
   text-align: center;
 }
 
+.auth {
+  margin-top: 20vh;
+}
+
 .auth-link {
   display: block;
   text-align: center;

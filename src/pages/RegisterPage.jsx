@@ -13,7 +13,7 @@ export default function RegisterPage() {
 
   return (
     <Container>
-      <h1 className="primary-title">Sign up</h1>
+      <h1 className="primary-title auth">Sign up</h1>
 
       <AuthForm type="register" title="Sign Up" handleSubmit={handleSubmit} />
 
