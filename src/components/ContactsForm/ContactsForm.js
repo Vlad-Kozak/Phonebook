@@ -1,15 +1,23 @@
 import { useState } from 'react';
-import { useAddContactMutation } from 'redux/phoneBookAPI';
+import { useAddContactMutation, useGetContactsQuery } from 'redux/phoneBookAPI';
+import { toast } from 'react-toastify';
 import s from './ContactsForm.module.css';
 
 function ContactsForm() {
   const [addContact] = useAddContactMutation();
+  const { data = [] } = useGetContactsQuery();
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
+
+    if (data.some(el => el.name.toLowerCase() === name.toLowerCase())) {
+      toast(`${name} is already in contacts.`);
+      return;
+    }
+
     addContact({ name, number });
     formReset();
   };
