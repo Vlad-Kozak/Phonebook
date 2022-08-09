@@ -12,10 +12,11 @@
 }
 
 .deleteBtn {
-  padding: 5px 10px;
+  padding: 6px 6px;
   background-color: var(--accent-color);
   border-radius: 10px;
   color: var(--primary-color);
+  line-height: 100%;
   cursor: pointer;
   transition: background-color 300ms;
 }

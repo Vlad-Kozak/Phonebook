@@ -73,7 +73,7 @@ function ContactsForm() {
         />
       </label>
       <button className={s.submit} type="submit">
-        Add contact
+        &#10010; Add contact
       </button>
     </form>
   );
